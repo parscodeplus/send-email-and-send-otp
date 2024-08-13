@@ -17,7 +17,7 @@ export const sendEmail = async (dto: SendEmailDto) => {
   const { sender, receipients, subject, message } = dto;
   return await transport.sendMail({
     from: sender,
-    to: receipients,
+    to: receipients,  
     subject,
     html: message,
     text: message,

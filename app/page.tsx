@@ -3,19 +3,27 @@ import { sendMailOtp } from "@/action/sendOtp";
 import { Button } from "@/components/ui/button";
 import { verifyOTPToken } from "@/utils/jwt";  // ???? ???? ?? ????? ????
 import React, { useState } from "react";
-
+import { up_manifest } from "@/action/up-manifest";
+import { useServerAction } from "zsa-react";
 function Page() {
   const [isLoading, setIsLoading] = useState(false);
   const [otp, setOTP] = useState<string>("");
   const [token, setToken] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<boolean>(false);
-
+  const { execute , isPending} = useServerAction(up_manifest)
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setOTP(e.target.value);
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    const [data,err]= await execute({
+      name:"app next timeyad",
+      scope:"/",
+      short_name:"تایم",
+      start_url:"/"
+    })
+    alert(data?.accepted)
     e.preventDefault();
     setError(null);
     setSuccess(false);
