@@ -1,0 +1,10 @@
+{
+    "your-project-id": {
+      "title": "My Project",
+      "manifest_short_name": "تایم یاد",
+      "meta_description": "This is a sample project description.",
+      "manifest_icon": "../logo.ico",
+      "logo": "../next.svg" 
+    }
+  }
+  

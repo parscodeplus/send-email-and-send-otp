@@ -1,7 +1,7 @@
 {
   "id": "any_id",
-  "name": "app next timeyad",
-  "short_name": "تایم",
+  "name": "mm5",
+  "short_name": "تایمmm5",
   "description": "This next.js app is a PWA.",
   "icons": [
     {
@@ -22,7 +22,7 @@
   ],
   "theme_color": "#FFFFFF",
   "background_color": "#FFFFFF",
-  "start_url": "/",
+  "start_url": "mm5.localhost:3000",
   "scope": "/",
   "display": "standalone",
   "orientation": "portrait"
