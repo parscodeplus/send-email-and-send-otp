@@ -1,10 +1,10 @@
 "use client"
 import React, { useEffect, useState } from 'react';
 import { Label } from './ui/label';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
+import { BackgroundGradient } from '@/components/magicui/background-gradient';
 import { cn } from "@/lib/utils";
-import AnimatedGradientText from "@/components/magicui/animated-gradient-text";
-import { BackgroundGradient } from "@/components/magicui/background-gradient";
+import DotPattern from "@/components/magicui/dot-pattern";
 
 interface CountdownProps {
   duration: number; // Duration in seconds
@@ -14,7 +14,7 @@ interface CountdownProps {
 }
 
 const Countdown: React.FC<CountdownProps> = ({ duration, onComplete, active, resetTrigger }) => {
-  const [timeLeft, setTimeLeft] = useState(duration);
+  const [timeLeft, setTimeLeft] = useState<number>(duration);
 
   useEffect(() => {
     setTimeLeft(duration); // Reset time when duration or resetTrigger changes
@@ -32,26 +32,33 @@ const Countdown: React.FC<CountdownProps> = ({ duration, onComplete, active, res
     }
   }, [active, timeLeft, onComplete]);
 
-  const formattedTime = () => {
+  const formattedTime = (): string => {
     const seconds = timeLeft % 60;
     return `${seconds.toString().padStart(2, '0')}`;
   };
 
   return (
-    <BackgroundGradient className='flex items-center justify-center rounded-full m-4 w-3 h-3'>
-      <Label className="text-2xl text-white rounded-full">
-        <motion.span
-          className="inline-block"
-          key={timeLeft} // Adding a unique key to trigger animation on change
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: 20 }}
-          transition={{ duration: 0.5 }}
-        >
-          {formattedTime()}
-        </motion.span>
+    <div className="relative flex items-center justify-center h-8 w-8 overflow-hidden rounded-full align-middle">
+      <Label className="text-2xl text-black rounded-full">
+        <AnimatePresence mode="wait">
+          <motion.span
+            className="inline-block"
+            key={timeLeft} // Adding a/ unique key to trigger animation on change
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 20 }}
+            transition={{ duration: 0.5 }}
+          >
+            {formattedTime()}
+          </motion.span>
+        </AnimatePresence>
       </Label>
-    </BackgroundGradient>
+      {/* <DotPattern
+        className={cn(
+          "[mask-image:radial-gradient(40px_circle_at_center,white,transparent)]",
+        )}
+      /> */}
+    </div>
   );
 };
 

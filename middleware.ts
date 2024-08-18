@@ -56,14 +56,15 @@ export default async function middleware(req: NextRequest) {
   //     "https://vercel.com/blog/platforms-starter-kit",
   //   );
   // }
-
+  console.log(req.url);
+  
   // rewrite root application to `/home` folder
   if (
     hostname === "localhost:3000" ||
     hostname === process.env.NEXT_PUBLIC_ROOT_DOMAIN
   ) {
     return NextResponse.rewrite(
-      new URL(`/${path === "/" ? "" : path}`, req.url),
+      new URL(`${path === "/" ? "" : req.url}`, req.url),
     );
   }
 

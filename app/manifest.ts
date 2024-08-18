@@ -1,4 +1,3 @@
-import { Image } from 'next/image';
 import { appConfig } from '@/config/app';
 import { getProject } from '@/config/directus';
 import { EXPO_PROJECT_ID } from '@/config/env';
@@ -16,8 +15,12 @@ export default async function manifest(): Promise<MetadataRoute.Manifest> {
     start_url: '/',
     orientation: 'portrait',
     display: 'standalone',
+    display_override: [
+      'window-controls-overlay'
+    ],
     background_color: '#fff',
     theme_color: appConfig.colors.primary[500],
+   
     icons: [
       {
         src: getDirectusFile(project.manifest_icon ?? project.logo),
@@ -25,5 +28,23 @@ export default async function manifest(): Promise<MetadataRoute.Manifest> {
         type: 'image/x-icon',
       },
     ],
+    screenshots: [
+    {
+      src: './screenshot-playlist.png',
+      sizes: '1280x720',
+      // platform: 'wide',
+      // label: 'ggggg'
+    },
+    {
+      src: './screenshot-visualizer.png',
+      sizes: '1280x720',
+      //  platform: 'wide',
+      // label: 'ggggg'
+    },
+    {
+      src: './screenshot-widget.png',
+      sizes: '600x400',
+    }
+  ],
   };
 }

@@ -6,6 +6,11 @@ import {
 /** @type {import("next").NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  logging: {
+    fetches: {
+      fullUrl: true,
+    },
+  },
 };
 
 const nextConfigFunction = async (phase) => {
@@ -13,11 +18,21 @@ const nextConfigFunction = async (phase) => {
     const withPWA = (await import("@ducanh2912/next-pwa")).default({
       dest: "public",
       // disable: process.env.NODE_ENV === "development",
-      register: true,
-      sw: "service-worker.js",
-      customWorkerDest: "service-worker",
-      cacheStartUrl: true,
+      // register: true,
+      cacheOnFrontEndNav: true,
+      aggressiveFrontEndNavCaching: true,
       reloadOnOnline: true,
+      swcMinify: true,
+      disable: process.env.NODE_ENV === "development",
+      workboxOptions: {
+        disableDevLogs: true,
+      },
+      // sw: "service-worker.js",
+      // customWorkerDest: "service-worker",
+      // cacheStartUrl: true,
+      // reloadOnOnline: true,
+      // cacheOnFrontEndNav: true,
+      // aggressiveFrontEndNavCaching: true,
       fallbacks: {
         // Failed page requests fallback to this.
         document: "/~offline",

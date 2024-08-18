@@ -45,7 +45,7 @@ export default async function SiteLayout({
         <div className="mx-auto flex h-full max-w-screen-xl items-center justify-center space-x-5 px-10 sm:px-20">
           <Link href="/" className="flex items-center justify-center">
             <div className="inline-block h-8 w-8 overflow-hidden rounded-full align-middle">
-            
+            home page
             </div>
            
           </Link>

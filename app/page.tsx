@@ -5,6 +5,8 @@ import { verifyOTPToken } from "@/utils/jwt";  // ???? ???? ?? ????? ????
 import React, { useState } from "react";
 import { up_manifest } from "@/action/up-manifest";
 import { useServerAction } from "zsa-react";
+import MaxWidthWrapper from "@/components/max-width-wrapper";
+import { MobileReservationSlider } from "@/components/mobile-reservation-slider";
 function Page() {
   const [isLoading, setIsLoading] = useState(false);
   const [otp, setOTP] = useState<string>("");
@@ -69,6 +71,9 @@ function Page() {
 
   return (
     <>
+     <MaxWidthWrapper>
+      <MobileReservationSlider />
+    </MaxWidthWrapper>
       <Button onClick={handleSendOtp} disabled={isLoading}>
         {isLoading ? "Sending..." : "Send OTP"}
       </Button>

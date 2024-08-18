@@ -22,6 +22,7 @@
     "@types/workbox-window": "^5.0.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
+    "embla-carousel-react": "^8.1.8",
     "framer-motion": "^11.3.21",
     "input-otp": "^1.2.4",
     "jsonwebtoken": "^9.0.2",
