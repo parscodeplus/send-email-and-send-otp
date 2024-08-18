@@ -57,6 +57,7 @@ export const metadata: Metadata = {
 };
 
 import RegisterPWA from "./register-pwa";
+import InstallPWAButton from "@/components/install-PWA-button";
 // Whether we are running as an installed PWA or not.
 // const isInstalledPWA = window.matchMedia('(display-mode: window-controls-overlay)').matches ||
 //                        window.matchMedia('(display-mode: standalone)').matches;
@@ -72,7 +73,9 @@ export default function RootLayout({
     <html lang="en">
       {/* <head><link rel="manifest" href="/manifest.json" />  </head> */}
       <body className={inter.className}>
-        <RegisterPWA />
+        {/* <RegisterPWA /> */}
+
+        <InstallPWAButton />
         {children}
       <Toaster />
       </body>

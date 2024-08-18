@@ -1,5 +1,3 @@
-"use client"
-
 import * as React from "react"
 import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react"
 import useEmblaCarousel, {
@@ -18,8 +16,9 @@ type CarouselProps = {
   opts?: CarouselOptions
   plugins?: CarouselPlugin
   orientation?: "horizontal" | "vertical"
-  direction?: "ltr" | "rtl" // New prop for direction
+  direction?: "ltr" | "rtl"
   setApi?: (api: CarouselApi) => void
+  showArrows?: boolean // New prop to control arrow visibility
 }
 
 type CarouselContextProps = {
@@ -29,7 +28,8 @@ type CarouselContextProps = {
   scrollNext: () => void
   canScrollPrev: boolean
   canScrollNext: boolean
-  direction: "ltr" | "rtl" // Include direction in context
+  direction: "ltr" | "rtl"
+  showArrows: boolean // Include showArrows in context
 } & CarouselProps
 
 const CarouselContext = React.createContext<CarouselContextProps | null>(null)
@@ -55,6 +55,7 @@ const Carousel = React.forwardRef<
       opts,
       setApi,
       plugins,
+      showArrows = true, // Default to true if not provided
       className,
       children,
       ...props
@@ -65,7 +66,7 @@ const Carousel = React.forwardRef<
       {
         ...opts,
         axis: orientation === "horizontal" ? "x" : "y",
-        direction: direction, // Set direction
+        direction: direction,
       },
       plugins
     )
@@ -145,6 +146,7 @@ const Carousel = React.forwardRef<
           scrollNext,
           canScrollPrev,
           canScrollNext,
+          showArrows, // Pass showArrows to context
         }}
       >
         <div
@@ -212,7 +214,9 @@ const CarouselPrevious = React.forwardRef<
   HTMLButtonElement,
   React.ComponentProps<typeof Button>
 >(({ className, variant = "outline", size = "icon", ...props }, ref) => {
-  const { orientation, scrollPrev, canScrollPrev, direction } = useCarousel()
+  const { orientation, scrollPrev, canScrollPrev, direction, showArrows } = useCarousel()
+
+  if (!showArrows) return null; // Do not render if showArrows is false
 
   return (
     <Button
@@ -243,7 +247,9 @@ const CarouselNext = React.forwardRef<
   HTMLButtonElement,
   React.ComponentProps<typeof Button>
 >(({ className, variant = "outline", size = "icon", ...props }, ref) => {
-  const { orientation, scrollNext, canScrollNext, direction } = useCarousel()
+  const { orientation, scrollNext, canScrollNext, direction, showArrows } = useCarousel()
+
+  if (!showArrows) return null; // Do not render if showArrows is false
 
   return (
     <Button

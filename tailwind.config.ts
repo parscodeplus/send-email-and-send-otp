@@ -59,6 +59,10 @@ const config = {
         sm: "calc(var(--radius) - 4px)",
       },
       keyframes: {
+        pulse: {
+          "0%, 100%": { boxShadow: "0 0 0 0 var(--pulse-color)" },
+          "50%": { boxShadow: "0 0 0 4px var(--pulse-color)" },
+        },
         "accordion-down": {
           from: { height: "0" },
           to: { height: "var(--radix-accordion-content-height)" },
@@ -76,12 +80,22 @@ const config = {
             backgroundPosition: "var(--bg-size) 0",
           },
         },
+        meteor: {
+          "0%": { transform: "rotate(50deg) translateX(0)", opacity: "1" },
+          "70%": { opacity: "1" },
+          "100%": {
+            transform: "rotate(50deg) translateX(300px)",
+            opacity: "0",
+          },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
          gradient: "gradient 8s linear infinite",
         "caret-blink": "caret-blink 1.25s ease-out infinite",
+        meteor: "meteor 5s linear infinite",
+        pulse: "pulse var(--duration) ease-out infinite",
       },
     },
   },
