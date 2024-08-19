@@ -49,7 +49,7 @@ export function MobileReservationSlider() {
     }
   }, [api]);
 
-   if (!showSlider || isDesktop) return null;
+  //  if (!showSlider || isDesktop) return null;
 
   return (
     <AnimatePresence>

@@ -1,7 +1,7 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import PulsatingButton from './ui/pulsating-button';
-
+import Image from "next/image";
 // ????? BeforeInstallPromptEvent
 interface BeforeInstallPromptEvent extends Event {
   prompt: () => Promise<void>;
@@ -52,8 +52,9 @@ const InstallPWAButton: React.FC = () => {
 
   return (
     <div className="fixed top-0 left-0 right-0 flex justify-center bg-white p-2 z-50">
-      <PulsatingButton onClick={handleInstallClick}>
-        Install PWA
+      <PulsatingButton  onClick={handleInstallClick} className='bg-white'>
+      <Image src="/icons8-android-phone.gif" alt="alt" width={24} height={24} />
+        {/* <span>Install PWA</span> */}
       </PulsatingButton>
     </div>
   );
