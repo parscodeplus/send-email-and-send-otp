@@ -5,8 +5,14 @@ import { verifyOTPToken } from "@/utils/jwt";  // ???? ???? ?? ????? ????
 import React, { useState } from "react";
 import { up_manifest } from "@/action/up-manifest";
 import { useServerAction } from "zsa-react";
-import MaxWidthWrapper from "@/components/max-width-wrapper";
-import { MobileReservationSlider } from "@/components/mobile-reservation-slider";
+import NotificationSender from "@/components/notification-sender";
+import dynamic from 'next/dynamic'
+import { CustomSlider } from "@/components/custom-slider";
+import { ProductScrollArea } from "@/components/product-scrollArea";
+
+const Notifications = dynamic(() => import("../components/notifications"), {
+  ssr: false, // Make sure to render component client side to access window and Notification API's
+})
 function Page() {
   const [isLoading, setIsLoading] = useState(false);
   const [otp, setOTP] = useState<string>("");
@@ -68,12 +74,12 @@ function Page() {
     }
     setIsLoading(false);
   };
-
+ 
   return (
     <>
-     <MaxWidthWrapper>
-      <MobileReservationSlider />
-    </MaxWidthWrapper>
+    <ProductScrollArea />
+    {/* <CustomSlider /> */}
+    {/* <Notifications /> */}
       <Button onClick={handleSendOtp} disabled={isLoading}>
         {isLoading ? "Sending..." : "Send OTP"}
       </Button>

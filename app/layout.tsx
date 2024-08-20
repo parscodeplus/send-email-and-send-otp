@@ -62,6 +62,7 @@ import InstallPWAButton from "@/components/install-PWA-button";
 // const isInstalledPWA = window.matchMedia('(display-mode: window-controls-overlay)').matches ||
 //                        window.matchMedia('(display-mode: standalone)').matches;
 // console.log(isInstalledPWA);
+import Script from "next/script";
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -75,9 +76,10 @@ export default function RootLayout({
       <body className={inter.className}>
         {/* <RegisterPWA /> */}
 
-        <InstallPWAButton />
+        {/* <InstallPWAButton /> */}
         {children}
       <Toaster />
+      <Script src="/service-worker.js" />
       </body>
     </html>
   );

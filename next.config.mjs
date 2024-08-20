@@ -11,6 +11,13 @@ const nextConfig = {
       fullUrl: true,
     },
   },
+
+  images: {
+    remotePatterns: [
+      { hostname: "fakestoreapi.com" },
+     
+    ],
+  },
 };
 
 const nextConfigFunction = async (phase) => {
@@ -19,11 +26,11 @@ const nextConfigFunction = async (phase) => {
       dest: "public",
       // disable: process.env.NODE_ENV === "development",
       // register: true,
+      disable: process.env.NODE_ENV === "development",
       cacheOnFrontEndNav: true,
       aggressiveFrontEndNavCaching: true,
       reloadOnOnline: true,
       swcMinify: true,
-      disable: process.env.NODE_ENV === "development",
       workboxOptions: {
         disableDevLogs: true,
       },
