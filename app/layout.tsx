@@ -79,7 +79,6 @@ export default function RootLayout({
         {/* <InstallPWAButton /> */}
         {children}
       <Toaster />
-      <Script src="/service-worker.js" />
       </body>
     </html>
   );

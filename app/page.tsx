@@ -1,48 +1,49 @@
 "use client";
 import { sendMailOtp } from "@/action/sendOtp";
 import { Button } from "@/components/ui/button";
-import { verifyOTPToken } from "@/utils/jwt";  // ???? ???? ?? ????? ????
-import React, { useState } from "react";
+import { verifyOTPToken } from "@/utils/jwt"; // ???? ???? ?? ????? ????
+import React, { useRef, useState } from "react";
 import { up_manifest } from "@/action/up-manifest";
 import { useServerAction } from "zsa-react";
 import NotificationSender from "@/components/notification-sender";
-import dynamic from 'next/dynamic'
+import dynamic from "next/dynamic";
 import { CustomSlider } from "@/components/custom-slider";
 import { ProductScrollArea } from "@/components/product-scrollArea";
+import StickyHeader from "@/components/scroll-sticky-header";
 
 const Notifications = dynamic(() => import("../components/notifications"), {
   ssr: false, // Make sure to render component client side to access window and Notification API's
-})
+});
 function Page() {
   const [isLoading, setIsLoading] = useState(false);
   const [otp, setOTP] = useState<string>("");
   const [token, setToken] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<boolean>(false);
-  const { execute , isPending} = useServerAction(up_manifest)
+  const { execute, isPending } = useServerAction(up_manifest);
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setOTP(e.target.value);
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    const [data,err]= await execute({
-      name:"app next timeyad",
-      scope:"/",
-      short_name:"تایم",
-      start_url:"/"
-    })
-    alert(data?.accepted)
+    const [data, err] = await execute({
+      name: "app next timeyad",
+      scope: "/",
+      short_name: "تایم",
+      start_url: "/",
+    });
+    alert(data?.accepted);
     e.preventDefault();
     setError(null);
     setSuccess(false);
-    
+
     console.log("Token:", token);
     console.log("OTP:", otp);
 
     try {
       const isValid = await verifyOTPToken(token, parseInt(otp));
       console.log("IsValid:", isValid);
-      
+
       if (isValid) {
         setSuccess(true);
       } else {
@@ -60,7 +61,9 @@ function Page() {
     setError(null);
     setSuccess(false);
     try {
-      const { data, err, token, code } = await sendMailOtp("parscodeplus@gmail.com");
+      const { data, err, token, code } = await sendMailOtp(
+        "parscodeplus@gmail.com"
+      );
       if (err) {
         setError("Failed to send OTP. Please try again.");
         setIsLoading(false);
@@ -74,17 +77,37 @@ function Page() {
     }
     setIsLoading(false);
   };
- 
+  const parentRef = useRef<HTMLDivElement>(null); // ????? ?? ???????? ???
+
   return (
-    <>
-    <ProductScrollArea />
-    {/* <CustomSlider /> */}
-    {/* <Notifications /> */}
+    <div className="h-[800px]">
+      <ProductScrollArea />
+      <ProductScrollArea />
+      <ProductScrollArea />
+      <ProductScrollArea />
+
+      <div ref={parentRef} className="p-8">
+        <StickyHeader >
+          <h1 className="text-2xl font-bold">My Sticky Header</h1>
+          <button className="ml-4 p-2 bg-blue-500 text-white rounded">
+            Click Me
+          </button>
+        </StickyHeader>
+        <CustomSlider />
+      </div>
+      <ProductScrollArea />
+      <ProductScrollArea />
+      <ProductScrollArea />
+      <ProductScrollArea />
+
+      {/* <Notifications /> */}
       <Button onClick={handleSendOtp} disabled={isLoading}>
         {isLoading ? "Sending..." : "Send OTP"}
       </Button>
       {error && <div className="text-red-500 mt-4">{error}</div>}
-      {success && <div className="text-green-500 mt-4">OTP verified successfully!</div>}
+      {success && (
+        <div className="text-green-500 mt-4">OTP verified successfully!</div>
+      )}
       <form className="max-w-md mx-auto mt-8" onSubmit={handleSubmit}>
         <div className="mb-6">
           <label htmlFor="otp" className="block mb-2 font-bold text-white">
@@ -112,7 +135,7 @@ function Page() {
           </button>
         </div>
       </form>
-    </>
+    </div>
   );
 }
 
